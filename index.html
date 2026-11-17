@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مزرعتي PRO</title>
+<style>
+body {
+  font-family: Arial;
+  background: #f1f5f1;
+  margin: 0;
+  text-align: center;
+}
+header {
+  background: #176b3a;
+  color: white;
+  padding: 25px;
+}
+.container {
+  padding: 20px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  margin: 15px auto;
+  border-radius: 12px;
+  max-width: 400px;
+  box-shadow: 0 2px 8px #ccc;
+}
+button {
+  background: #176b3a;
+  color: white;
+  border: 0;
+  padding: 12px 25px;
+  border-radius: 8px;
+}
+input {
+  padding: 12px;
+  margin: 8px;
+  width: 80%;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🐑 مزرعتي PRO</h1>
+<p>نظام إدارة وتسيير الأغنام</p>
+</header>
+
+<div class="container">
+<div class="card">
+<h2>إضافة نعجة</h2>
+<input id="name" placeholder="اسم أو رقم النعجة">
+<input id="breed" placeholder="السلالة">
+<button onclick="addSheep()">إضافة</button>
+</div>
+
+<div class="card">
+<h2>قائمة النعاج</h2>
+<div id="list"></div>
+</div>
+</div>
+
+<script>
+function addSheep() {
+ let name = document.getElementById("name").value;
+ let breed = document.getElementById("breed").value;
+ if(!name) return alert("أدخل رقم النعجة");
+ let sheep = JSON.parse(localStorage.getItem("sheep") || "[]");
+ sheep.push({name,breed});
+ localStorage.setItem("sheep",JSON.stringify(sheep));
+ showSheep();
+}
+function showSheep() {
+ let sheep = JSON.parse(localStorage.getItem("sheep") || "[]");
+ document.getElementById("list").innerHTML =
+ sheep.map(s => `<p>🐑 ${s.name} - ${s.breed}</p>`).join("");
+}
+showSheep();
+</script>
+
+</body>
+</html>
